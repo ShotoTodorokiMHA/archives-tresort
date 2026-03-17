@@ -199,9 +199,6 @@ export function TreasureHuntApp() {
               </div>
 
               <div className="mx-auto flex max-w-3xl flex-col items-center space-y-3 md:space-y-5">
-                <p className="text-[10px] uppercase tracking-[0.42em] text-[#b91c1c] md:text-[11px]">
-                  Rennes shared route
-                </p>
                 <h1 className="text-balance mx-auto max-w-3xl text-[2rem] font-semibold leading-[0.92] tracking-[-0.06em] text-ink opacity-0 animate-rise md:text-6xl">
                   {huntConfig.title}
                 </h1>
