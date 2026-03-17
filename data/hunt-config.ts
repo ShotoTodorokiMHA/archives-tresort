@@ -118,7 +118,7 @@ export const defaultHuntConfig: HuntConfig = {
   successMessage:
     "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi.",
   finalMessage:
-    "Merci de votre participation, la chasse est finie.",
+    "La chasse est finie, merci a tous !",
   finalCode: "",
   finalRewardHint: "",
   center: {

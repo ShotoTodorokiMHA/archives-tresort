@@ -404,7 +404,7 @@ export function TreasureHuntApp({ initialHuntConfig, initialTreasureSteps }: Tre
           </section>
         ) : (
           <section className="mt-4 rounded-[32px] border border-black/10 bg-white/88 px-6 py-10 text-center shadow-soft backdrop-blur md:mt-6 md:px-10 md:py-16">
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-ink md:text-6xl">
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-ink md:text-4xl">
               {huntConfig.finalMessage}
             </h2>
           </section>
