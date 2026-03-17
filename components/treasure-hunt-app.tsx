@@ -389,7 +389,7 @@ export function TreasureHuntApp({ initialHuntConfig, initialTreasureSteps }: Tre
                     >
                       <div className="flex-1">
                         <p className="text-[10px] uppercase tracking-[0.18em] text-white/45 md:tracking-[0.22em]">
-                          Étape {index + 1}
+                          Boîte {index + 1}
                         </p>
                         <p className="mt-1 text-sm font-medium md:mt-2">{step.name}</p>
                       </div>

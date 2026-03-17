@@ -149,7 +149,7 @@ export const defaultTreasureSteps: TreasureStep[] = [
     hint:
       "L'endroit ou la pierre classique rencontre le rythme de la ville. Cherchez la facade qui impose le silence.",
     description:
-      "Une étape monumentale au cœur de Rennes, entre héritage, lignes nettes et détails cachés.",
+      "Une boîte monumentale au cœur de Rennes, entre héritage, lignes nettes et détails cachés.",
     validationCode: "1204"
   },
   {
@@ -185,7 +185,7 @@ export const defaultTreasureSteps: TreasureStep[] = [
     hint:
       "Finissez entre les lignes ouvertes de la place. Cherchez la dernière boîte, là où le centre s'élargit.",
     description:
-      "Dernière étape hors boutique. Une fois validée, le message final peut être montré en magasin.",
+      "Dernière boîte hors boutique. Une fois validée, le message final peut être montré en magasin.",
     validationCode: "9175"
   }
 ];

@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   if (!currentStep) {
     return NextResponse.json(
       {
-        error: "Etape introuvable.",
+        error: "Boîte introuvable.",
         ...progress
       },
       { status: 404, headers: { "Cache-Control": "no-store" } }

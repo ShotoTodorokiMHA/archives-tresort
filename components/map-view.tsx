@@ -74,7 +74,7 @@ export function MapView({
                 <div className="w-[250px] rounded-[20px] bg-[#faf9f5] p-4 text-ink">
                   <div className="mb-3 flex items-center justify-between gap-3">
                     <span className="text-[11px] uppercase tracking-[0.28em] text-black/45">
-                      Etape {index + 1}
+                      Boîte {index + 1}
                     </span>
                     <span
                       className={clsx(
@@ -95,7 +95,7 @@ export function MapView({
                   <p className="mt-1 text-sm text-black/58">{step.address}</p>
                   <p className="mt-4 text-sm leading-6 text-black/80">
                     {status === "locked"
-                      ? "Cette étape sera disponible après validation de la précédente."
+                      ? "Cette boîte sera disponible après validation de la précédente."
                       : step.hint}
                   </p>
                   {isActive ? (
