@@ -73,7 +73,7 @@ export type HuntContent = {
 export const defaultHuntConfig: HuntConfig = {
   admin: {
     resetPassword: "ArchivesReset35!",
-    title: "Admin reset",
+    title: "Admin",
     description: "Acces interne pour modifier les boites et remettre a zero la progression partagee.",
     passwordLabel: "Mot de passe admin",
     passwordPlaceholder: "Entrer le mot de passe admin",
@@ -116,10 +116,10 @@ export const defaultHuntConfig: HuntConfig = {
   validateButtonLabel: "Valider le code",
   successTitle: "Boite trouvee",
   successMessage:
-    "Felicitations ta trouver la boite, mot de passe a dire au vendeur : Enzo est trop beau avec ca chevelure. PS : Prendre un screen et ramene la boite avec toi.",
+    "Felicitations, tu as trouve la boite. Mot de passe a dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramene la boite avec toi.",
   finalMessage:
-    "Toutes les etapes sont validees. Faites votre capture d'ecran et revenez chez Archives Concept Store avec la boite.",
-  finalCode: "Enzo est trop beau avec ca chevelure",
+    "Toutes les etapes sont validees. Fais une capture d'ecran et reviens chez Archives Concept Store avec la boite.",
+  finalCode: "Enzo est trop beau avec sa chevelure",
   finalRewardHint: "Montrez ce message au vendeur et venez avec la boite.",
   center: {
     lat: 48.10964,
@@ -137,7 +137,7 @@ export const defaultTreasureSteps: TreasureStep[] = [
     hint:
       "Le depart se fait a la boutique. Trouvez la premiere boite ou le premier indice avant de prendre la route.",
     description:
-      "Point de depart officiel. La chasse s'ouvre ici avant de se deplacer dans Rennes.",
+      "Point de depart officiel. La chasse commence ici avant de se deplacer dans Rennes.",
     validationCode: "2002"
   },
   {
@@ -161,7 +161,7 @@ export const defaultTreasureSteps: TreasureStep[] = [
     hint:
       "Face a la mairie, une courbe parfaite regarde la place. Le prochain indice se cache dans cette geometrie.",
     description:
-      "Une halte au centre de la ville, la ou la facade ronde devient un point de reperage.",
+      "Une halte au centre de la ville, la ou la facade ronde devient un point de repere.",
     validationCode: "2841"
   },
   {
@@ -183,7 +183,7 @@ export const defaultTreasureSteps: TreasureStep[] = [
     lat: 48.11287,
     lng: -1.68443,
     hint:
-      "Finissez entre les lignes ouvertes de la place. Cherchez la derniere boite la ou le centre s'elargit.",
+      "Finissez entre les lignes ouvertes de la place. Cherchez la derniere boite, la ou le centre s'elargit.",
     description:
       "Derniere etape hors boutique. Une fois validee, le message final peut etre montre en magasin.",
     validationCode: "9175"

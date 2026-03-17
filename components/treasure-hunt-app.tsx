@@ -45,6 +45,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
   const [enteredCode, setEnteredCode] = useState("");
   const [codeError, setCodeError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -139,6 +140,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
 
       setValidatedStepIds(data.validatedStepIds ?? []);
       setSuccessMessage(data.message ?? huntConfig.successMessage);
+      setIsSuccessModalOpen(true);
       setEnteredCode("");
     } catch {
       setCodeError("Impossible de synchroniser la progression pour le moment.");
@@ -228,15 +230,6 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
             </div>
           </div>
         </section>
-
-        {successMessage ? (
-          <section className="mt-4 rounded-[24px] border border-[#b91c1c]/15 bg-[#b91c1c] px-5 py-5 text-center text-white shadow-soft md:px-8">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-white/70">{huntConfig.successTitle}</p>
-            <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 md:text-base md:leading-7">
-              {successMessage}
-            </p>
-          </section>
-        ) : null}
 
         <section className="mt-4 grid gap-4 lg:mt-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-6">
           <div className="order-2 lg:order-1">
@@ -387,6 +380,26 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
           </section>
         ) : null}
       </div>
+      {isSuccessModalOpen && successMessage ? (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/55 px-4">
+          <div className="w-full max-w-[560px] rounded-[28px] border border-[#b91c1c]/20 bg-white p-6 text-center shadow-soft md:p-8">
+            <p className="text-[11px] uppercase tracking-[0.34em] text-[#b91c1c]">{huntConfig.successTitle}</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-ink md:text-4xl">
+              Code valide
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-black/75 md:text-base">
+              {successMessage}
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsSuccessModalOpen(false)}
+              className="mt-6 rounded-full bg-ink px-6 py-3 text-sm font-medium text-white transition duration-300 hover:bg-[#b91c1c]"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }
