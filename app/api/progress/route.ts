@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { huntConfig, treasureSteps } from "@/data/hunt-config";
+import { defaultHuntConfig } from "@/data/hunt-config";
+import { readHuntContent } from "@/lib/content-store";
 import { readSharedProgress, writeSharedProgress } from "@/lib/progress-store";
 
 type ValidatePayload = {
@@ -25,13 +26,14 @@ export async function POST(request: Request) {
   const code = (payload.code ?? "").trim();
   const adminPassword = (payload.adminPassword ?? "").trim();
 
+  const { huntConfig, treasureSteps } = await readHuntContent();
   const progress = await readSharedProgress();
 
   if (action === "reset") {
     if (adminPassword !== huntConfig.admin.resetPassword) {
       return NextResponse.json(
         {
-          error: huntConfig.admin.errorMessage,
+          error: huntConfig.admin.errorMessage ?? defaultHuntConfig.admin.errorMessage,
           ...progress
         },
         { status: 401, headers: { "Cache-Control": "no-store" } }
@@ -47,7 +49,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ...resetProgress,
-        message: huntConfig.admin.successMessage
+        message: huntConfig.admin.successMessage ?? defaultHuntConfig.admin.successMessage
       },
       { headers: { "Cache-Control": "no-store" } }
     );

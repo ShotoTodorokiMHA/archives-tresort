@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { huntConfig, treasureSteps } from "@/data/hunt-config";
+import { HuntConfig, TreasureStep } from "@/data/hunt-config";
 import { StepStatus, clsx } from "@/lib/utils";
 
 const DynamicMap = dynamic(
@@ -22,21 +22,24 @@ type SharedProgress = {
   error?: string;
 };
 
-const buildStatuses = (validatedStepIds: string[]): Record<string, StepStatus> => {
+type TreasureHuntAppProps = {
+  huntConfig: HuntConfig;
+  treasureSteps: TreasureStep[];
+};
+
+const buildStatuses = (
+  treasureSteps: TreasureStep[],
+  validatedStepIds: string[]
+): Record<string, StepStatus> => {
   const validatedSet = new Set(validatedStepIds);
 
   return treasureSteps.reduce<Record<string, StepStatus>>((acc, step) => {
-    if (validatedSet.has(step.id)) {
-      acc[step.id] = "validated";
-      return acc;
-    }
-
-    acc[step.id] = "unlocked";
+    acc[step.id] = validatedSet.has(step.id) ? "validated" : "unlocked";
     return acc;
   }, {});
 };
 
-export function TreasureHuntApp() {
+export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppProps) {
   const [validatedStepIds, setValidatedStepIds] = useState<string[]>([]);
   const [selectedStepId, setSelectedStepId] = useState<string | null>(treasureSteps[0]?.id ?? null);
   const [enteredCode, setEnteredCode] = useState("");
@@ -88,10 +91,11 @@ export function TreasureHuntApp() {
     };
   }, []);
 
-  const statuses = useMemo(() => buildStatuses(validatedStepIds), [validatedStepIds]);
-  const selectedStep =
-    treasureSteps.find((step) => step.id === selectedStepId) ??
-    treasureSteps[0];
+  const statuses = useMemo(
+    () => buildStatuses(treasureSteps, validatedStepIds),
+    [treasureSteps, validatedStepIds]
+  );
+  const selectedStep = treasureSteps.find((step) => step.id === selectedStepId) ?? treasureSteps[0];
   const completedCount = validatedStepIds.length;
   const isFinished = completedCount === treasureSteps.length;
 
@@ -136,8 +140,6 @@ export function TreasureHuntApp() {
       setValidatedStepIds(data.validatedStepIds ?? []);
       setSuccessMessage(data.message ?? huntConfig.successMessage);
       setEnteredCode("");
-
-      setSelectedStepId(selectedStep.id);
     } catch {
       setCodeError("Impossible de synchroniser la progression pour le moment.");
     } finally {
@@ -261,13 +263,10 @@ export function TreasureHuntApp() {
                   className={clsx(
                     "justify-self-end rounded-full px-2.5 py-1.5 text-[9px] uppercase tracking-[0.18em] md:px-3 md:text-[10px] md:tracking-[0.22em]",
                     statuses[selectedStep.id] === "validated" && "bg-black text-white",
-                    statuses[selectedStep.id] === "unlocked" && "bg-[#b91c1c] text-white",
-                    statuses[selectedStep.id] === "locked" && "bg-black/8 text-black/50"
+                    statuses[selectedStep.id] === "unlocked" && "bg-[#b91c1c] text-white"
                   )}
                 >
-                  {statuses[selectedStep.id] === "validated"
-                    ? "Validee"
-                    : "Disponible"}
+                  {statuses[selectedStep.id] === "validated" ? "Validee" : "Disponible"}
                 </span>
               </div>
 
@@ -344,8 +343,7 @@ export function TreasureHuntApp() {
                       "flex w-full items-center justify-between rounded-[18px] border px-3 py-3 text-center transition duration-300 md:rounded-[22px] md:px-4 md:py-4",
                       selectedStepId === step.id
                         ? "border-white/30 bg-white/12"
-                        : "border-white/10 bg-white/5 hover:bg-white/10",
-                      statuses[step.id] === "locked" && "opacity-55"
+                        : "border-white/10 bg-white/5 hover:bg-white/10"
                     )}
                   >
                     <div className="flex-1">
@@ -355,9 +353,7 @@ export function TreasureHuntApp() {
                       <p className="mt-1 text-sm font-medium md:mt-2">{step.name}</p>
                     </div>
                     <span className="text-xs uppercase tracking-[0.2em] text-white/60">
-                      {statuses[step.id] === "validated"
-                        ? "Ok"
-                        : "Open"}
+                      {statuses[step.id] === "validated" ? "Ok" : "Open"}
                     </span>
                   </button>
                 ))}

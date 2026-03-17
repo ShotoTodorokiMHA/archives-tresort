@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { treasureSteps } from "@/data/hunt-config";
+import { readHuntContent } from "@/lib/content-store";
 
 export type SharedProgress = {
   validatedStepIds: string[];
@@ -10,8 +10,6 @@ export type SharedProgress = {
 const progressFilePath = path.join(process.cwd(), "data", "shared-progress.json");
 const progressTableName = process.env.SUPABASE_PROGRESS_TABLE ?? "treasure_hunt_progress";
 const progressEventKey = process.env.SUPABASE_EVENT_KEY ?? "archives-treasures-hunt";
-
-const validStepIds = new Set(treasureSteps.map((step) => step.id));
 
 function hasSupabaseConfig() {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -33,7 +31,9 @@ function getSupabaseClient() {
   });
 }
 
-function sanitizeValidatedStepIds(stepIds: string[]) {
+async function sanitizeValidatedStepIds(stepIds: string[]) {
+  const content = await readHuntContent();
+  const validStepIds = new Set(content.treasureSteps.map((step) => step.id));
   return stepIds.filter((id) => validStepIds.has(id));
 }
 
@@ -63,7 +63,9 @@ export async function readSharedProgress(): Promise<SharedProgress> {
       throw error;
     }
 
-    const validatedStepIds = sanitizeValidatedStepIds((data?.validated_step_ids as string[] | undefined) ?? []);
+    const validatedStepIds = await sanitizeValidatedStepIds(
+      (data?.validated_step_ids as string[] | undefined) ?? []
+    );
     return { validatedStepIds };
   }
 
@@ -72,7 +74,7 @@ export async function readSharedProgress(): Promise<SharedProgress> {
 
   try {
     const parsed = JSON.parse(raw) as SharedProgress;
-    const validatedStepIds = sanitizeValidatedStepIds(parsed.validatedStepIds ?? []);
+    const validatedStepIds = await sanitizeValidatedStepIds(parsed.validatedStepIds ?? []);
     return { validatedStepIds };
   } catch {
     return { validatedStepIds: [] };
@@ -80,7 +82,7 @@ export async function readSharedProgress(): Promise<SharedProgress> {
 }
 
 export async function writeSharedProgress(progress: SharedProgress) {
-  const validatedStepIds = sanitizeValidatedStepIds(progress.validatedStepIds);
+  const validatedStepIds = await sanitizeValidatedStepIds(progress.validatedStepIds);
 
   if (hasSupabaseConfig()) {
     const supabase = getSupabaseClient();

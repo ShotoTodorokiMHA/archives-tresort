@@ -9,14 +9,76 @@ export type TreasureStep = {
   validationCode: string;
 };
 
-export const huntConfig = {
+export type AdminConfig = {
+  resetPassword: string;
+  title: string;
+  description: string;
+  passwordLabel: string;
+  passwordPlaceholder: string;
+  resetLabel: string;
+  saveLabel: string;
+  successMessage: string;
+  errorMessage: string;
+};
+
+export type SiteLockConfig = {
+  enabled: boolean;
+  releaseAtIso: string;
+  password: string;
+  storageKey: string;
+  title: string;
+  heading: string;
+  message: string;
+  passwordLabel: string;
+  passwordPlaceholder: string;
+  submitLabel: string;
+  releaseLabel: string;
+  errorMessage: string;
+};
+
+export type HuntConfig = {
+  admin: AdminConfig;
+  siteLock: SiteLockConfig;
+  brandName: string;
+  logo: {
+    src: string;
+    alt: string;
+  };
+  cityLabel: string;
+  title: string;
+  subtitle: string;
+  intro: string;
+  startButtonLabel: string;
+  codeInputLabel: string;
+  codeInputPlaceholder: string;
+  codeHelperText: string;
+  codeErrorMessage: string;
+  validateButtonLabel: string;
+  successTitle: string;
+  successMessage: string;
+  finalMessage: string;
+  finalCode: string;
+  finalRewardHint: string;
+  center: {
+    lat: number;
+    lng: number;
+  };
+};
+
+export type HuntContent = {
+  huntConfig: HuntConfig;
+  treasureSteps: TreasureStep[];
+};
+
+export const defaultHuntConfig: HuntConfig = {
   admin: {
     resetPassword: "ArchivesReset35!",
     title: "Admin reset",
-    description: "Acces interne pour remettre a zero la progression partagee.",
+    description: "Acces interne pour modifier les boites et remettre a zero la progression partagee.",
     passwordLabel: "Mot de passe admin",
     passwordPlaceholder: "Entrer le mot de passe admin",
     resetLabel: "Reinitialiser la progression",
+    saveLabel: "Enregistrer les modifications",
     successMessage: "Progression reinitialisee.",
     errorMessage: "Mot de passe admin incorrect."
   },
@@ -65,7 +127,7 @@ export const huntConfig = {
   }
 };
 
-export const treasureSteps: TreasureStep[] = [
+export const defaultTreasureSteps: TreasureStep[] = [
   {
     id: "archives-store-start",
     name: "Archives Concept Store",
@@ -127,3 +189,8 @@ export const treasureSteps: TreasureStep[] = [
     validationCode: "9175"
   }
 ];
+
+export const defaultHuntContent: HuntContent = {
+  huntConfig: defaultHuntConfig,
+  treasureSteps: defaultTreasureSteps
+};

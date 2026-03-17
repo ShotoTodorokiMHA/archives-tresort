@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { huntConfig } from "@/data/hunt-config";
+import { HuntConfig } from "@/data/hunt-config";
 
 type SiteLockGateProps = {
+  config: HuntConfig;
   children: React.ReactNode;
 };
 
@@ -14,8 +15,8 @@ const releaseDateFormatter = new Intl.DateTimeFormat("fr-FR", {
   timeZone: "Europe/Paris"
 });
 
-export function SiteLockGate({ children }: SiteLockGateProps) {
-  const { siteLock, logo } = huntConfig;
+export function SiteLockGate({ config, children }: SiteLockGateProps) {
+  const { siteLock, logo } = config;
   const [password, setPassword] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(!siteLock.enabled);
   const [hasHydrated, setHasHydrated] = useState(false);

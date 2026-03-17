@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ignore-pattern .next --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

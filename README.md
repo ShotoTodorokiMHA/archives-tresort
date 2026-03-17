@@ -82,6 +82,7 @@ Variables utilisees:
 - `SUPABASE_URL`: URL du projet Supabase
 - `SUPABASE_SERVICE_ROLE_KEY`: cle serveur, a ne jamais exposer cote client
 - `SUPABASE_PROGRESS_TABLE`: nom de la table, par defaut `treasure_hunt_progress`
+- `SUPABASE_CONTENT_TABLE`: nom de la table, par defaut `treasure_hunt_content`
 - `SUPABASE_EVENT_KEY`: identifiant de l'evenement, utile si vous gerez plusieurs chasses
 
 ## Structure
@@ -118,6 +119,7 @@ Vous pouvez y changer:
 - les codes de validation a 4 chiffres
 - le code secret final
 - le message final affiche apres validation
+- le lock du site et son mot de passe
 
 Le logo par defaut est dans [archives-logo.svg](/Users/sho/Documents/New%20project%203/public/brand/archives-logo.svg). Remplacez ce fichier par votre vrai logo, ou changez simplement le chemin `huntConfig.logo.src`.
 
@@ -141,7 +143,7 @@ L'ordre du tableau definit l'ordre de debloquage.
 - Systeme verrouille / deverrouille / valide
 - Validation d'etape par code a 4 chiffres
 - Progression partagee via `/api/progress`
-- Reset interne via `/wowlepaneldefou`
+- Reset interne et edition du contenu via `/wowlepaneldefou`
 - Ecran final avec code secret
 - Interface responsive mobile et desktop
 
