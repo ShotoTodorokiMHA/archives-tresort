@@ -70,10 +70,14 @@ function sanitizeTreasureSteps(value: unknown): TreasureStep[] {
     const source = (step ?? {}) as Partial<TreasureStep>;
     const validationCodesSource = Array.isArray((source as { validationCodes?: unknown }).validationCodes)
       ? ((source as { validationCodes?: unknown[] }).validationCodes ?? [])
-      : [((source as { validationCode?: unknown }).validationCode ?? "")];
-    const validationCodes = validationCodesSource
-      .map((code) => String(code ?? "").replace(/\D/g, "").slice(0, 4))
-      .filter(Boolean);
+      : [];
+    const firstValidationCode =
+      validationCodesSource
+        .map((code) => String(code ?? "").replace(/\D/g, "").slice(0, 4))
+        .find(Boolean) ??
+      String((source as { validationCode?: unknown }).validationCode ?? "")
+        .replace(/\D/g, "")
+        .slice(0, 4);
 
     return {
       id: String(source.id ?? `step-${index + 1}`),
@@ -83,7 +87,8 @@ function sanitizeTreasureSteps(value: unknown): TreasureStep[] {
       lng: Number(source.lng ?? 0),
       hint: String(source.hint ?? ""),
       description: String(source.description ?? ""),
-      validationCodes
+      validationCode: firstValidationCode,
+      sellerMessage: String(source.sellerMessage ?? defaultHuntContent.huntConfig.successMessage)
     };
   });
 }

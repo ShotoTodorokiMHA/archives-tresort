@@ -29,17 +29,6 @@ function toNumber(value: string) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
-function formatValidationCodes(codes: string[]) {
-  return codes.join("\n");
-}
-
-function parseValidationCodes(rawValue: string) {
-  return rawValue
-    .split("\n")
-    .map((code) => code.replace(/\D/g, "").slice(0, 4))
-    .filter(Boolean);
-}
-
 function extractCoordinatesFromMapsUrl(rawUrl: string) {
   const value = rawUrl.trim();
 
@@ -126,25 +115,6 @@ export function AdminResetPanel() {
       nextSteps[index] = {
         ...nextSteps[index],
         [field]: field === "lat" || field === "lng" ? toNumber(value) : value
-      };
-
-      return {
-        ...current,
-        treasureSteps: nextSteps
-      };
-    });
-  };
-
-  const updateStepValidationCodes = (index: number, rawValue: string) => {
-    setContent((current) => {
-      if (!current) {
-        return current;
-      }
-
-      const nextSteps = [...current.treasureSteps];
-      nextSteps[index] = {
-        ...nextSteps[index],
-        validationCodes: parseValidationCodes(rawValue)
       };
 
       return {
@@ -310,7 +280,7 @@ export function AdminResetPanel() {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Pop-up de succès</label>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Pop-up de succès par défaut</label>
                     <textarea
                       value={huntConfig.successMessage}
                       onChange={(event) => updateConfig("successMessage", event.target.value)}
@@ -476,11 +446,19 @@ export function AdminResetPanel() {
                         className="rounded-[16px] border border-black/10 bg-white px-4 py-3"
                         placeholder="Nom"
                       />
+                      <input
+                        value={step.validationCode}
+                        onChange={(event) =>
+                          updateStep(index, "validationCode", event.target.value.replace(/\D/g, "").slice(0, 4))
+                        }
+                        className="rounded-[16px] border border-black/10 bg-white px-4 py-3"
+                        placeholder="Code à 4 chiffres"
+                      />
                       <textarea
-                        value={formatValidationCodes(step.validationCodes)}
-                        onChange={(event) => updateStepValidationCodes(index, event.target.value)}
-                        className="min-h-24 rounded-[16px] border border-black/10 bg-white px-4 py-3"
-                        placeholder={"Codes valides, un par ligne\n2002\n4821"}
+                        value={step.sellerMessage}
+                        onChange={(event) => updateStep(index, "sellerMessage", event.target.value)}
+                        className="min-h-24 rounded-[16px] border border-black/10 bg-white px-4 py-3 md:col-span-2"
+                        placeholder="Texte pop-up / mot de passe à dire au vendeur"
                       />
                       <input
                         value={step.address}

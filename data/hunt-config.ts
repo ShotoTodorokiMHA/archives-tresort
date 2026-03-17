@@ -6,7 +6,8 @@ export type TreasureStep = {
   lng: number;
   hint: string;
   description: string;
-  validationCodes: string[];
+  validationCode: string;
+  sellerMessage: string;
 };
 
 export type AdminConfig = {
@@ -138,7 +139,9 @@ export const defaultTreasureSteps: TreasureStep[] = [
       "Le départ se fait à la boutique. Trouvez la première boîte ou le premier indice avant de prendre la route.",
     description:
       "Point de départ officiel. La chasse commence ici avant de se déplacer dans Rennes.",
-    validationCodes: ["2002"]
+    validationCode: "2002",
+    sellerMessage:
+      "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi."
   },
   {
     id: "parlement",
@@ -150,7 +153,9 @@ export const defaultTreasureSteps: TreasureStep[] = [
       "L'endroit ou la pierre classique rencontre le rythme de la ville. Cherchez la facade qui impose le silence.",
     description:
       "Une boîte monumentale au cœur de Rennes, entre héritage, lignes nettes et détails cachés.",
-    validationCodes: ["1204"]
+    validationCode: "1204",
+    sellerMessage:
+      "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi."
   },
   {
     id: "opera",
@@ -162,7 +167,9 @@ export const defaultTreasureSteps: TreasureStep[] = [
       "Face à la mairie, une courbe parfaite regarde la place. Le prochain indice se cache dans cette géométrie.",
     description:
       "Une halte au centre de la ville, là où la façade ronde devient un point de repère.",
-    validationCodes: ["2841"]
+    validationCode: "2841",
+    sellerMessage:
+      "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi."
   },
   {
     id: "thabor",
@@ -174,7 +181,9 @@ export const defaultTreasureSteps: TreasureStep[] = [
       "Traversez un jardin calme. La suite attend là où Rennes respire entre pierre, eau et allées dessinées.",
     description:
       "Une respiration dans le parcours, plus calme, plus cachée, avant le dernier mouvement.",
-    validationCodes: ["4632"]
+    validationCode: "4632",
+    sellerMessage:
+      "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi."
   },
   {
     id: "place-des-lices",
@@ -186,7 +195,9 @@ export const defaultTreasureSteps: TreasureStep[] = [
       "Finissez entre les lignes ouvertes de la place. Cherchez la dernière boîte, là où le centre s'élargit.",
     description:
       "Dernière boîte hors boutique. Une fois validée, le message final peut être montré en magasin.",
-    validationCodes: ["9175"]
+    validationCode: "9175",
+    sellerMessage:
+      "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi."
   }
 ];
 

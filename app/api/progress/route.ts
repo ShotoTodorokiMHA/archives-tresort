@@ -71,13 +71,13 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ...progress,
-        message: huntConfig.successMessage
+        message: currentStep.sellerMessage || huntConfig.successMessage
       },
       { headers: { "Cache-Control": "no-store" } }
     );
   }
 
-  if (!currentStep.validationCodes.includes(code)) {
+  if (code !== currentStep.validationCode) {
     return NextResponse.json(
       {
         error: huntConfig.codeErrorMessage,
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
   return NextResponse.json(
     {
       ...updated,
-      message: huntConfig.successMessage
+      message: currentStep.sellerMessage || huntConfig.successMessage
     },
     { headers: { "Cache-Control": "no-store" } }
   );
