@@ -8,9 +8,43 @@ type ContentResponse = HuntContent & {
   error?: string;
 };
 
+type StepDraftExtras = {
+  mapsUrl: string;
+};
+
 function toNumber(value: string) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function extractCoordinatesFromMapsUrl(rawUrl: string) {
+  const value = rawUrl.trim();
+
+  if (!value) {
+    return null;
+  }
+
+  const patterns = [
+    /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /[?&]query=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
+    /ll=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/
+  ];
+
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (!match) {
+      continue;
+    }
+
+    return {
+      lat: Number(match[1]),
+      lng: Number(match[2])
+    };
+  }
+
+  return null;
 }
 
 export function AdminResetPanel() {
@@ -20,6 +54,7 @@ export function AdminResetPanel() {
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [stepExtras, setStepExtras] = useState<StepDraftExtras[]>([]);
 
   useEffect(() => {
     const load = async () => {
@@ -28,6 +63,7 @@ export function AdminResetPanel() {
       });
       const data = (await response.json()) as HuntContent;
       setContent(data);
+      setStepExtras(data.treasureSteps.map(() => ({ mapsUrl: "" })));
     };
 
     void load();
@@ -70,6 +106,33 @@ export function AdminResetPanel() {
         treasureSteps: nextSteps
       };
     });
+  };
+
+  const updateStepExtra = (index: number, field: keyof StepDraftExtras, value: string) => {
+    setStepExtras((current) => {
+      const next = [...current];
+      next[index] = {
+        ...(next[index] ?? { mapsUrl: "" }),
+        [field]: value
+      };
+      return next;
+    });
+  };
+
+  const applyMapsUrlToStep = (index: number) => {
+    const mapsUrl = stepExtras[index]?.mapsUrl ?? "";
+    const coordinates = extractCoordinatesFromMapsUrl(mapsUrl);
+
+    if (!coordinates) {
+      setError("Impossible d'extraire les coordonnées depuis ce lien Maps.");
+      setMessage("");
+      return;
+    }
+
+    setError("");
+    setMessage("Coordonnées récupérées depuis le lien Maps.");
+    updateStep(index, "lat", String(coordinates.lat));
+    updateStep(index, "lng", String(coordinates.lng));
   };
 
   const saveContent = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -314,6 +377,23 @@ export function AdminResetPanel() {
                         className="rounded-[16px] border border-black/10 bg-white px-4 py-3 md:col-span-2"
                         placeholder="Adresse"
                       />
+                      <div className="md:col-span-2">
+                        <div className="flex flex-col gap-2 md:flex-row">
+                          <input
+                            value={stepExtras[index]?.mapsUrl ?? ""}
+                            onChange={(event) => updateStepExtra(index, "mapsUrl", event.target.value)}
+                            className="flex-1 rounded-[16px] border border-black/10 bg-white px-4 py-3"
+                            placeholder="Lien Google Maps / Apple Plans"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => applyMapsUrlToStep(index)}
+                            className="rounded-full border border-black/10 px-4 py-3 text-sm font-medium text-ink transition duration-300 hover:border-black/30 hover:bg-white"
+                          >
+                            Extraire la position
+                          </button>
+                        </div>
+                      </div>
                       <input
                         value={step.lat}
                         onChange={(event) => updateStep(index, "lat", event.target.value)}
