@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(185, 28, 28, 0.08), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(15, 15, 16, 0.06), transparent 28%),
+    linear-gradient(180deg, #fcfbf7 0%, #f1eee6 100%);
+  color: #0f0f10;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #ebe8de;
+  font-family: inherit;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(15, 15, 16, 0.15);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+}
+
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.map-tile-tone {
+  filter: saturate(0.22) contrast(1.08) brightness(1.01);
+}
+
+.custom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 24px rgba(15, 15, 16, 0.16);
+}
+
+.custom-marker::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.marker-locked {
+  background: rgba(15, 15, 16, 0.25);
+  color: rgba(15, 15, 16, 0.45);
+}
+
+.marker-unlocked {
+  background: rgba(185, 28, 28, 0.94);
+  color: #f8f7f1;
+}
+
+.street-grid {
+  background-image:
+    linear-gradient(rgba(15, 15, 16, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 15, 16, 0.03) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.marker-completed {
+  background: #0f0f10;
+  color: #f8f7f1;
+}
