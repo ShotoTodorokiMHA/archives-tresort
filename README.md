@@ -141,7 +141,7 @@ L'ordre du tableau definit l'ordre de debloquage.
 - Systeme verrouille / deverrouille / valide
 - Validation d'etape par code a 4 chiffres
 - Progression partagee via `/api/progress`
-- Reset interne via `/admin`
+- Reset interne via `/wowlepaneldefou`
 - Ecran final avec code secret
 - Interface responsive mobile et desktop
 
