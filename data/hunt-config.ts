@@ -118,9 +118,9 @@ export const defaultHuntConfig: HuntConfig = {
   successMessage:
     "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi.",
   finalMessage:
-    "Toutes les étapes sont validées. Fais une capture d'écran et reviens chez Archives Concept Store avec la boîte.",
+    "Toutes les boîtes ont été trouvées. Merci pour votre participation et rendez-vous chez Archives Concept Store pour la suite.",
   finalCode: "Enzo est trop beau avec sa chevelure",
-  finalRewardHint: "Montrez ce message au vendeur et venez avec la boîte.",
+  finalRewardHint: "Si besoin, montrez ce message au vendeur et revenez avec la boîte.",
   center: {
     lat: 48.10964,
     lng: -1.680148
