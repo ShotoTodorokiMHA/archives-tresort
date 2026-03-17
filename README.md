@@ -109,6 +109,7 @@ Tout est centralise dans [hunt-config.ts](/Users/sho/Documents/New%20project%203
 
 Vous pouvez y changer:
 
+- le reset admin via `admin.resetPassword`
 - le logo via `huntConfig.logo.src`
 - les textes de l'evenement
 - la ville et le centrage de la carte
@@ -140,6 +141,7 @@ L'ordre du tableau definit l'ordre de debloquage.
 - Systeme verrouille / deverrouille / valide
 - Validation d'etape par code a 4 chiffres
 - Progression partagee via `/api/progress`
+- Reset interne via `/admin`
 - Ecran final avec code secret
 - Interface responsive mobile et desktop
 

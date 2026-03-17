@@ -24,7 +24,6 @@ type SharedProgress = {
 
 const buildStatuses = (validatedStepIds: string[]): Record<string, StepStatus> => {
   const validatedSet = new Set(validatedStepIds);
-  let unlockNext = true;
 
   return treasureSteps.reduce<Record<string, StepStatus>>((acc, step) => {
     if (validatedSet.has(step.id)) {
@@ -32,13 +31,7 @@ const buildStatuses = (validatedStepIds: string[]): Record<string, StepStatus> =
       return acc;
     }
 
-    if (unlockNext) {
-      acc[step.id] = "unlocked";
-      unlockNext = false;
-      return acc;
-    }
-
-    acc[step.id] = "locked";
+    acc[step.id] = "unlocked";
     return acc;
   }, {});
 };
@@ -98,7 +91,6 @@ export function TreasureHuntApp() {
   const statuses = useMemo(() => buildStatuses(validatedStepIds), [validatedStepIds]);
   const selectedStep =
     treasureSteps.find((step) => step.id === selectedStepId) ??
-    treasureSteps.find((step) => statuses[step.id] === "unlocked") ??
     treasureSteps[0];
   const completedCount = validatedStepIds.length;
   const isFinished = completedCount === treasureSteps.length;
@@ -108,27 +100,8 @@ export function TreasureHuntApp() {
     setCodeError("");
   }, [selectedStepId]);
 
-  useEffect(() => {
-    if (!selectedStep) {
-      return;
-    }
-
-    const status = statuses[selectedStep.id];
-    if (status === "locked") {
-      const nextAvailable =
-        treasureSteps.find((step) => statuses[step.id] === "unlocked")?.id ??
-        treasureSteps[treasureSteps.length - 1]?.id ??
-        null;
-      setSelectedStepId(nextAvailable);
-    }
-  }, [selectedStep, statuses]);
-
   const focusActiveStep = () => {
-    const nextAvailable =
-      treasureSteps.find((step) => statuses[step.id] === "unlocked")?.id ??
-      treasureSteps[treasureSteps.length - 1]?.id ??
-      null;
-    setSelectedStepId(nextAvailable);
+    setSelectedStepId(treasureSteps[0]?.id ?? null);
   };
 
   const validateSelectedStep = async () => {
@@ -164,10 +137,7 @@ export function TreasureHuntApp() {
       setSuccessMessage(data.message ?? huntConfig.successMessage);
       setEnteredCode("");
 
-      const nextStatuses = buildStatuses(data.validatedStepIds ?? []);
-      const nextAvailable =
-        treasureSteps.find((step) => nextStatuses[step.id] === "unlocked")?.id ?? selectedStep.id;
-      setSelectedStepId(nextAvailable);
+      setSelectedStepId(selectedStep.id);
     } catch {
       setCodeError("Impossible de synchroniser la progression pour le moment.");
     } finally {
@@ -251,7 +221,7 @@ export function TreasureHuntApp() {
               <p className="mt-4 text-center text-xs leading-5 text-black/50">
                 {isLoading
                   ? "Chargement de la progression commune..."
-                  : "Cette progression est partagee entre tous les participants."}
+                  : "Toutes les boites sont jouables par tout le monde, en meme temps."}
               </p>
             </div>
           </div>
@@ -282,7 +252,7 @@ export function TreasureHuntApp() {
               <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 md:gap-4">
                 <div />
                 <div className="min-w-0">
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Etape active</p>
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boite selectionnee</p>
                   <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-ink md:mt-3 md:text-2xl">
                     {selectedStep.name}
                   </h2>
@@ -297,9 +267,7 @@ export function TreasureHuntApp() {
                 >
                   {statuses[selectedStep.id] === "validated"
                     ? "Validee"
-                    : statuses[selectedStep.id] === "unlocked"
-                      ? "Disponible"
-                      : "Verrouillee"}
+                    : "Disponible"}
                 </span>
               </div>
 
@@ -314,9 +282,9 @@ export function TreasureHuntApp() {
               <div className="mt-4 rounded-[20px] bg-[#f5f3ec] p-4 md:mt-6 md:rounded-[24px]">
                 <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Instruction</p>
                 <p className="mt-2 text-sm leading-6 text-black/80">
-                  {statuses[selectedStep.id] === "locked"
-                    ? "Une autre personne doit d'abord ouvrir l'etape precedente."
-                    : "Trouvez la boite sur place puis entrez le code pour la valider pour tout le monde."}
+                  {statuses[selectedStep.id] === "validated"
+                    ? "Cette boite a deja ete validee. Vous pouvez quand meme visiter les autres points."
+                    : "Trouvez la boite choisie puis entrez son code pour la valider pour tout le monde."}
                 </p>
               </div>
 
@@ -340,13 +308,13 @@ export function TreasureHuntApp() {
                       setCodeError("");
                     }
                   }}
-                  disabled={statuses[selectedStep.id] !== "unlocked" || isSubmitting}
+                  disabled={statuses[selectedStep.id] === "validated" || isSubmitting}
                   placeholder={huntConfig.codeInputPlaceholder}
                   className="mt-3 w-full rounded-[16px] border border-black/10 bg-[#f5f3ec] px-4 py-3 text-center text-lg tracking-[0.35em] text-ink outline-none transition focus:border-[#b91c1c] disabled:cursor-not-allowed disabled:opacity-50 md:rounded-[18px]"
                 />
                 <p className="mt-3 text-xs leading-5 text-black/55 md:text-sm md:leading-6">
-                  {statuses[selectedStep.id] === "locked"
-                    ? "Cette etape est encore fermee."
+                  {statuses[selectedStep.id] === "validated"
+                    ? "Boite deja validee."
                     : huntConfig.codeHelperText}
                 </p>
                 {codeError ? <p className="mt-2 text-sm text-[#9a3412]">{codeError}</p> : null}
@@ -356,7 +324,7 @@ export function TreasureHuntApp() {
                 <button
                   type="button"
                   onClick={() => void validateSelectedStep()}
-                  disabled={statuses[selectedStep.id] !== "unlocked" || isSubmitting}
+                  disabled={statuses[selectedStep.id] === "validated" || isSubmitting}
                   className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition duration-300 hover:bg-[#b91c1c] disabled:cursor-not-allowed disabled:bg-black/20"
                 >
                   {isSubmitting ? "Validation..." : huntConfig.validateButtonLabel}
@@ -389,9 +357,7 @@ export function TreasureHuntApp() {
                     <span className="text-xs uppercase tracking-[0.2em] text-white/60">
                       {statuses[step.id] === "validated"
                         ? "Ok"
-                        : statuses[step.id] === "unlocked"
-                          ? "Open"
-                          : "Lock"}
+                        : "Open"}
                     </span>
                   </button>
                 ))}

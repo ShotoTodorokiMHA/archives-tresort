@@ -3,8 +3,10 @@ import { huntConfig, treasureSteps } from "@/data/hunt-config";
 import { readSharedProgress, writeSharedProgress } from "@/lib/progress-store";
 
 type ValidatePayload = {
+  action?: "validate" | "reset";
   stepId?: string;
   code?: string;
+  adminPassword?: string;
 };
 
 export async function GET() {
@@ -18,13 +20,52 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const payload = (await request.json()) as ValidatePayload;
+  const action = payload.action ?? "validate";
   const stepId = payload.stepId ?? "";
   const code = (payload.code ?? "").trim();
+  const adminPassword = (payload.adminPassword ?? "").trim();
 
   const progress = await readSharedProgress();
-  const nextStep = treasureSteps[progress.validatedStepIds.length];
 
-  if (!nextStep) {
+  if (action === "reset") {
+    if (adminPassword !== huntConfig.admin.resetPassword) {
+      return NextResponse.json(
+        {
+          error: huntConfig.admin.errorMessage,
+          ...progress
+        },
+        { status: 401, headers: { "Cache-Control": "no-store" } }
+      );
+    }
+
+    const resetProgress = {
+      validatedStepIds: []
+    };
+
+    await writeSharedProgress(resetProgress);
+
+    return NextResponse.json(
+      {
+        ...resetProgress,
+        message: huntConfig.admin.successMessage
+      },
+      { headers: { "Cache-Control": "no-store" } }
+    );
+  }
+
+  const currentStep = treasureSteps.find((step) => step.id === stepId);
+
+  if (!currentStep) {
+    return NextResponse.json(
+      {
+        error: "Etape introuvable.",
+        ...progress
+      },
+      { status: 404, headers: { "Cache-Control": "no-store" } }
+    );
+  }
+
+  if (progress.validatedStepIds.includes(currentStep.id)) {
     return NextResponse.json(
       {
         ...progress,
@@ -34,17 +75,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (stepId !== nextStep.id) {
-    return NextResponse.json(
-      {
-        error: "Cette etape n'est pas ouverte pour le moment.",
-        ...progress
-      },
-      { status: 409, headers: { "Cache-Control": "no-store" } }
-    );
-  }
-
-  if (code !== nextStep.validationCode) {
+  if (code !== currentStep.validationCode) {
     return NextResponse.json(
       {
         error: huntConfig.codeErrorMessage,
@@ -55,7 +86,7 @@ export async function POST(request: Request) {
   }
 
   const updated = {
-    validatedStepIds: [...progress.validatedStepIds, nextStep.id]
+    validatedStepIds: [...progress.validatedStepIds, currentStep.id]
   };
 
   await writeSharedProgress(updated);

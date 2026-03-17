@@ -10,6 +10,16 @@ export type TreasureStep = {
 };
 
 export const huntConfig = {
+  admin: {
+    resetPassword: "ArchivesReset35!",
+    title: "Admin reset",
+    description: "Acces interne pour remettre a zero la progression partagee.",
+    passwordLabel: "Mot de passe admin",
+    passwordPlaceholder: "Entrer le mot de passe admin",
+    resetLabel: "Reinitialiser la progression",
+    successMessage: "Progression reinitialisee.",
+    errorMessage: "Mot de passe admin incorrect."
+  },
   siteLock: {
     enabled: true,
     releaseAtIso: "2026-03-28T11:00:00+01:00",
@@ -33,10 +43,10 @@ export const huntConfig = {
   cityLabel: "Rennes",
   title: "Archives Treasures Hunt",
   subtitle:
-    "Commencez a la boutique, suivez la route, trouvez les boites et entrez le bon code pour ouvrir l'etape suivante.",
+    "Parcourez Rennes librement, trouvez les boites dans l'ordre que vous voulez et entrez le bon code pour les valider.",
   intro:
-    "Progression partagee en direct entre tous les participants. Une fois une boite trouvee, l'etape suivante s'ouvre pour tout le monde.",
-  startButtonLabel: "Voir l'etape active",
+    "Progression partagee en direct entre tous les participants. Toutes les boites sont ouvertes des le depart pour envoyer les gens dans toute la ville.",
+  startButtonLabel: "Voir la carte",
   codeInputLabel: "Code a 4 chiffres",
   codeInputPlaceholder: "0000",
   codeHelperText: "Entrez le code trouve sur place.",
