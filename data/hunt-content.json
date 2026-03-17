@@ -42,9 +42,9 @@
     "validateButtonLabel": "Valider le code",
     "successTitle": "Boîte trouvée",
     "successMessage": "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi.",
-    "finalMessage": "Toutes les boîtes ont été trouvées. Merci pour votre participation et rendez-vous chez Archives Concept Store pour la suite.",
-    "finalCode": "Enzo est trop beau avec sa chevelure",
-    "finalRewardHint": "Si besoin, montrez ce message au vendeur et revenez avec la boîte.",
+    "finalMessage": "Toutes les boîtes ont été trouvées.",
+    "finalCode": "",
+    "finalRewardHint": "",
     "center": {
       "lat": 48.10964,
       "lng": -1.680148
