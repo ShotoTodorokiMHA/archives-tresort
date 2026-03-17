@@ -252,42 +252,60 @@ export function AdminResetPanel() {
               <div className="rounded-[24px] border border-black/10 bg-white p-5">
                 <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Textes</p>
                 <div className="mt-4 space-y-4">
-                  <input
-                    value={huntConfig.title}
-                    onChange={(event) => updateConfig("title", event.target.value)}
-                    className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Titre"
-                  />
-                  <textarea
-                    value={huntConfig.subtitle}
-                    onChange={(event) => updateConfig("subtitle", event.target.value)}
-                    className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Sous-titre"
-                  />
-                  <textarea
-                    value={huntConfig.intro}
-                    onChange={(event) => updateConfig("intro", event.target.value)}
-                    className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Intro"
-                  />
-                  <textarea
-                    value={huntConfig.successMessage}
-                    onChange={(event) => updateConfig("successMessage", event.target.value)}
-                    className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Message de succes"
-                  />
-                  <textarea
-                    value={huntConfig.finalMessage}
-                    onChange={(event) => updateConfig("finalMessage", event.target.value)}
-                    className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Message final"
-                  />
-                  <input
-                    value={huntConfig.finalCode}
-                    onChange={(event) => updateConfig("finalCode", event.target.value)}
-                    className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
-                    placeholder="Phrase vendeur"
-                  />
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Titre principal</label>
+                    <input
+                      value={huntConfig.title}
+                      onChange={(event) => updateConfig("title", event.target.value)}
+                      className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Titre"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Sous-titre</label>
+                    <textarea
+                      value={huntConfig.subtitle}
+                      onChange={(event) => updateConfig("subtitle", event.target.value)}
+                      className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Sous-titre"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Texte d'introduction</label>
+                    <textarea
+                      value={huntConfig.intro}
+                      onChange={(event) => updateConfig("intro", event.target.value)}
+                      className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Introduction"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Pop-up de succès</label>
+                    <textarea
+                      value={huntConfig.successMessage}
+                      onChange={(event) => updateConfig("successMessage", event.target.value)}
+                      className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Message de succès"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Message final affiché quand tout est trouvé</label>
+                    <textarea
+                      value={huntConfig.finalMessage}
+                      onChange={(event) => updateConfig("finalMessage", event.target.value)}
+                      className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Message final"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Texte secondaire final</label>
+                    <input
+                      value={huntConfig.finalCode}
+                      onChange={(event) => updateConfig("finalCode", event.target.value)}
+                      className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                      placeholder="Texte secondaire final"
+                    />
+                  </div>
                 </div>
               </div>
 
