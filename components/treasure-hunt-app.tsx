@@ -232,7 +232,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
         </section>
 
         <section className="mt-4 grid gap-4 lg:mt-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-6">
-          <div className="order-2 lg:order-1">
+          <div className="order-1 lg:order-1">
             <DynamicMap
               center={huntConfig.center}
               activeStepId={selectedStepId}
@@ -242,7 +242,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
             />
           </div>
 
-          <aside className="order-1 flex flex-col gap-4 lg:order-2">
+          <aside className="order-2 flex flex-col gap-4 lg:order-2">
             <div className="rounded-[24px] border border-black/10 bg-white/80 p-4 text-center shadow-soft backdrop-blur md:rounded-[28px] md:p-6">
               <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 md:gap-4">
                 <div />
