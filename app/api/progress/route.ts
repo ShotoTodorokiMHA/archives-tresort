@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (code !== currentStep.validationCode) {
+  if (!currentStep.validationCodes.includes(code)) {
     return NextResponse.json(
       {
         error: huntConfig.codeErrorMessage,

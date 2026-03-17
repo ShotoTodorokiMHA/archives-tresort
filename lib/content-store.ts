@@ -68,6 +68,12 @@ function sanitizeTreasureSteps(value: unknown): TreasureStep[] {
 
   return value.map((step, index) => {
     const source = (step ?? {}) as Partial<TreasureStep>;
+    const validationCodesSource = Array.isArray((source as { validationCodes?: unknown }).validationCodes)
+      ? ((source as { validationCodes?: unknown[] }).validationCodes ?? [])
+      : [((source as { validationCode?: unknown }).validationCode ?? "")];
+    const validationCodes = validationCodesSource
+      .map((code) => String(code ?? "").replace(/\D/g, "").slice(0, 4))
+      .filter(Boolean);
 
     return {
       id: String(source.id ?? `step-${index + 1}`),
@@ -77,7 +83,7 @@ function sanitizeTreasureSteps(value: unknown): TreasureStep[] {
       lng: Number(source.lng ?? 0),
       hint: String(source.hint ?? ""),
       description: String(source.description ?? ""),
-      validationCode: String(source.validationCode ?? "").slice(0, 4)
+      validationCodes
     };
   });
 }
