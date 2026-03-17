@@ -10,6 +10,21 @@ export type TreasureStep = {
 };
 
 export const huntConfig = {
+  siteLock: {
+    enabled: true,
+    releaseAtIso: "2026-03-28T11:00:00+01:00",
+    password: "ArchivesCasual35!",
+    storageKey: "archives-site-lock-access",
+    title: "Archives Treasures Hunt",
+    heading: "Acces prive",
+    message:
+      "Le site s'ouvrira officiellement le 28 mars 2026 a 11:00, heure de Paris. Si vous avez le mot de passe, vous pouvez entrer des maintenant.",
+    passwordLabel: "Mot de passe",
+    passwordPlaceholder: "Entrer le mot de passe",
+    submitLabel: "Entrer",
+    releaseLabel: "Ouverture officielle",
+    errorMessage: "Mot de passe incorrect."
+  },
   brandName: "Archives Concept Store",
   logo: {
     src: "/brand/archives-logo.png",
