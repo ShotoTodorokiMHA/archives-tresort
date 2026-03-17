@@ -348,6 +348,39 @@ export function AdminResetPanel() {
                     placeholder="Mot de passe lock"
                   />
                   <input
+                    value={huntConfig.siteLock.title}
+                    onChange={(event) =>
+                      updateConfig("siteLock", {
+                        ...huntConfig.siteLock,
+                        title: event.target.value
+                      })
+                    }
+                    className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                    placeholder="Titre de la page lock"
+                  />
+                  <input
+                    value={huntConfig.siteLock.heading}
+                    onChange={(event) =>
+                      updateConfig("siteLock", {
+                        ...huntConfig.siteLock,
+                        heading: event.target.value
+                      })
+                    }
+                    className="w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                    placeholder="Petit titre de la page lock"
+                  />
+                  <textarea
+                    value={huntConfig.siteLock.message}
+                    onChange={(event) =>
+                      updateConfig("siteLock", {
+                        ...huntConfig.siteLock,
+                        message: event.target.value
+                      })
+                    }
+                    className="min-h-24 w-full rounded-[18px] border border-black/10 bg-[#f5f3ec] px-4 py-3"
+                    placeholder="Texte affiché sur la page lock"
+                  />
+                  <input
                     value={huntConfig.logo.src}
                     onChange={(event) =>
                       updateConfig("logo", {
