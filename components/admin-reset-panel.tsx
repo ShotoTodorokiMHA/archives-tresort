@@ -271,7 +271,7 @@ export function AdminResetPanel() {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Texte d'introduction</label>
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-black/45">Texte d&apos;introduction</label>
                     <textarea
                       value={huntConfig.intro}
                       onChange={(event) => updateConfig("intro", event.target.value)}
