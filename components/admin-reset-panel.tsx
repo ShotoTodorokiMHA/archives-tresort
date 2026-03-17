@@ -1,12 +1,24 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { HuntContent, TreasureStep } from "@/data/hunt-config";
+import { StepStatus } from "@/lib/utils";
 
 type ContentResponse = HuntContent & {
   message?: string;
   error?: string;
 };
+
+const DynamicMap = dynamic(
+  () => import("@/components/map-view").then((mod) => mod.MapView),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[320px] animate-pulse rounded-[24px] border border-black/10 bg-white/70 shadow-soft" />
+    )
+  }
+);
 
 type StepDraftExtras = {
   mapsUrl: string;
@@ -74,6 +86,10 @@ export function AdminResetPanel() {
   }
 
   const { huntConfig, treasureSteps } = content;
+  const previewStatuses = treasureSteps.reduce<Record<string, StepStatus>>((acc, step) => {
+    acc[step.id] = "unlocked";
+    return acc;
+  }, {});
 
   const updateConfig = (key: keyof typeof huntConfig, value: unknown) => {
     setContent((current) =>
@@ -347,6 +363,22 @@ export function AdminResetPanel() {
                     placeholder="Longitude centre"
                   />
                 </div>
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-black/10 bg-white p-5">
+              <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Aperçu carte</p>
+              <p className="mt-2 text-sm leading-6 text-black/60">
+                La carte se met à jour immédiatement quand vous changez une position.
+              </p>
+              <div className="mt-4">
+                <DynamicMap
+                  center={huntConfig.center}
+                  activeStepId={treasureSteps[0]?.id ?? null}
+                  steps={treasureSteps}
+                  statuses={previewStatuses}
+                  onSelectStep={() => {}}
+                />
               </div>
             </div>
 

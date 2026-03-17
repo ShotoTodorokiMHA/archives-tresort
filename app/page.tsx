@@ -9,7 +9,7 @@ export default async function Home() {
 
   return (
     <SiteLockGate config={huntConfig}>
-      <TreasureHuntApp huntConfig={huntConfig} treasureSteps={treasureSteps} />
+      <TreasureHuntApp initialHuntConfig={huntConfig} initialTreasureSteps={treasureSteps} />
     </SiteLockGate>
   );
 }

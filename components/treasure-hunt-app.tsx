@@ -23,8 +23,8 @@ type SharedProgress = {
 };
 
 type TreasureHuntAppProps = {
-  huntConfig: HuntConfig;
-  treasureSteps: TreasureStep[];
+  initialHuntConfig: HuntConfig;
+  initialTreasureSteps: TreasureStep[];
 };
 
 const buildStatuses = (
@@ -39,15 +39,35 @@ const buildStatuses = (
   }, {});
 };
 
-export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppProps) {
+export function TreasureHuntApp({ initialHuntConfig, initialTreasureSteps }: TreasureHuntAppProps) {
+  const [huntConfig, setHuntConfig] = useState(initialHuntConfig);
+  const [treasureSteps, setTreasureSteps] = useState(initialTreasureSteps);
   const [validatedStepIds, setValidatedStepIds] = useState<string[]>([]);
-  const [selectedStepId, setSelectedStepId] = useState<string | null>(treasureSteps[0]?.id ?? null);
+  const [selectedStepId, setSelectedStepId] = useState<string | null>(initialTreasureSteps[0]?.id ?? null);
   const [enteredCode, setEnteredCode] = useState("");
   const [codeError, setCodeError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const syncContent = async () => {
+    const response = await fetch("/api/hunt-content", {
+      cache: "no-store"
+    });
+    const data = (await response.json()) as {
+      huntConfig?: HuntConfig;
+      treasureSteps?: TreasureStep[];
+    };
+
+    if (data.huntConfig) {
+      setHuntConfig(data.huntConfig);
+    }
+
+    if (data.treasureSteps) {
+      setTreasureSteps(data.treasureSteps);
+    }
+  };
 
   const syncProgress = async () => {
     const response = await fetch("/api/progress", {
@@ -63,16 +83,31 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
 
     const load = async () => {
       try {
-        const response = await fetch("/api/progress", {
-          cache: "no-store"
-        });
-        const data = (await response.json()) as SharedProgress;
+        const [progressResponse, contentResponse] = await Promise.all([
+          fetch("/api/progress", {
+            cache: "no-store"
+          }),
+          fetch("/api/hunt-content", {
+            cache: "no-store"
+          })
+        ]);
+        const data = (await progressResponse.json()) as SharedProgress;
+        const content = (await contentResponse.json()) as {
+          huntConfig?: HuntConfig;
+          treasureSteps?: TreasureStep[];
+        };
 
         if (!isMounted) {
           return;
         }
 
         setValidatedStepIds(data.validatedStepIds ?? []);
+        if (content.huntConfig) {
+          setHuntConfig(content.huntConfig);
+        }
+        if (content.treasureSteps) {
+          setTreasureSteps(content.treasureSteps);
+        }
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -84,6 +119,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
 
     const interval = window.setInterval(() => {
       void syncProgress();
+      void syncContent();
     }, 5000);
 
     return () => {
@@ -104,6 +140,17 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
     setEnteredCode("");
     setCodeError("");
   }, [selectedStepId]);
+
+  useEffect(() => {
+    if (!selectedStepId && treasureSteps[0]?.id) {
+      setSelectedStepId(treasureSteps[0].id);
+      return;
+    }
+
+    if (selectedStepId && !treasureSteps.some((step) => step.id === selectedStepId)) {
+      setSelectedStepId(treasureSteps[0]?.id ?? null);
+    }
+  }, [selectedStepId, treasureSteps]);
 
   const focusActiveStep = () => {
     setSelectedStepId(treasureSteps[0]?.id ?? null);
