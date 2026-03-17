@@ -85,17 +85,17 @@ export function MapView({
                       )}
                     >
                       {status === "validated"
-                        ? "Validee"
+                        ? "Validée"
                         : status === "unlocked"
                           ? "Ouverte"
-                          : "Verrouillee"}
+                          : "Verrouillée"}
                     </span>
                   </div>
                   <h3 className="text-base font-semibold">{step.name}</h3>
                   <p className="mt-1 text-sm text-black/58">{step.address}</p>
                   <p className="mt-4 text-sm leading-6 text-black/80">
                     {status === "locked"
-                      ? "Cette etape sera disponible apres validation de la precedente."
+                      ? "Cette étape sera disponible après validation de la précédente."
                       : step.hint}
                   </p>
                   {isActive ? (

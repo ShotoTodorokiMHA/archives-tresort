@@ -3,12 +3,12 @@
     "admin": {
       "resetPassword": "ArchivesReset35!",
       "title": "Admin reset",
-      "description": "Acces interne pour modifier les boites et remettre a zero la progression partagee.",
+      "description": "Accès interne pour modifier les boîtes et remettre à zéro la progression partagée.",
       "passwordLabel": "Mot de passe admin",
       "passwordPlaceholder": "Entrer le mot de passe admin",
-      "resetLabel": "Reinitialiser la progression",
+      "resetLabel": "Réinitialiser la progression",
       "saveLabel": "Enregistrer les modifications",
-      "successMessage": "Progression reinitialisee.",
+      "successMessage": "Progression réinitialisée.",
       "errorMessage": "Mot de passe admin incorrect."
     },
     "siteLock": {
@@ -17,8 +17,8 @@
       "password": "ArchivesCasual35!",
       "storageKey": "archives-site-lock-access",
       "title": "Archives Treasures Hunt",
-      "heading": "Acces prive",
-      "message": "Le site s'ouvrira officiellement le 28 mars 2026 a 11:00, heure de Paris. Si vous avez le mot de passe, vous pouvez entrer des maintenant.",
+      "heading": "Accès privé",
+      "message": "Le site s'ouvrira officiellement le 28 mars 2026 à 11:00, heure de Paris. Si vous avez le mot de passe, vous pouvez entrer dès maintenant.",
       "passwordLabel": "Mot de passe",
       "passwordPlaceholder": "Entrer le mot de passe",
       "submitLabel": "Entrer",
@@ -32,19 +32,19 @@
     },
     "cityLabel": "Rennes",
     "title": "Archives Treasures Hunt",
-    "subtitle": "Parcourez Rennes librement, trouvez les boites dans l'ordre que vous voulez et entrez le bon code pour les valider.",
-    "intro": "Progression partagee en direct entre tous les participants. Toutes les boites sont ouvertes des le depart pour envoyer les gens dans toute la ville.",
+    "subtitle": "Parcourez Rennes librement, trouvez les boîtes dans l'ordre que vous voulez et entrez le bon code pour les valider.",
+    "intro": "Progression partagée en direct entre tous les participants. Toutes les boîtes sont ouvertes dès le départ pour envoyer les gens dans toute la ville.",
     "startButtonLabel": "Voir la carte",
-    "codeInputLabel": "Code a 4 chiffres",
+    "codeInputLabel": "Code à 4 chiffres",
     "codeInputPlaceholder": "0000",
-    "codeHelperText": "Entrez le code trouve sur place.",
-    "codeErrorMessage": "Code incorrect. Verifiez la boite et ressayez.",
+    "codeHelperText": "Entrez le code trouvé sur place.",
+    "codeErrorMessage": "Code incorrect. Vérifiez la boîte et réessayez.",
     "validateButtonLabel": "Valider le code",
-    "successTitle": "Boite trouvee",
-    "successMessage": "Felicitations, tu as trouve la boite. Mot de passe a dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramene la boite avec toi.",
-    "finalMessage": "Toutes les etapes sont validees. Fais une capture d'ecran et reviens chez Archives Concept Store avec la boite.",
+    "successTitle": "Boîte trouvée",
+    "successMessage": "Félicitations, tu as trouvé la boîte. Mot de passe à dire au vendeur : Enzo est trop beau avec sa chevelure. PS : Prends un screen et ramène la boîte avec toi.",
+    "finalMessage": "Toutes les étapes sont validées. Fais une capture d'écran et reviens chez Archives Concept Store avec la boîte.",
     "finalCode": "Enzo est trop beau avec sa chevelure",
-    "finalRewardHint": "Montrez ce message au vendeur et venez avec la boite.",
+    "finalRewardHint": "Montrez ce message au vendeur et venez avec la boîte.",
     "center": {
       "lat": 48.10964,
       "lng": -1.680148
@@ -57,8 +57,8 @@
       "address": "11 rue Victor Hugo, 35000 Rennes",
       "lat": 48.10964,
       "lng": -1.680148,
-      "hint": "Le depart se fait a la boutique. Trouvez la premiere boite ou le premier indice avant de prendre la route.",
-      "description": "Point de depart officiel. La chasse commence ici avant de se deplacer dans Rennes.",
+      "hint": "Le départ se fait à la boutique. Trouvez la première boîte ou le premier indice avant de prendre la route.",
+      "description": "Point de départ officiel. La chasse commence ici avant de se déplacer dans Rennes.",
       "validationCode": "2002"
     },
     {
@@ -68,7 +68,7 @@
       "lat": 48.111338,
       "lng": -1.67749,
       "hint": "L'endroit ou la pierre classique rencontre le rythme de la ville. Cherchez la facade qui impose le silence.",
-      "description": "Une etape monumentale au coeur de Rennes, entre heritage, lignes nettes et details caches.",
+      "description": "Une étape monumentale au cœur de Rennes, entre héritage, lignes nettes et détails cachés.",
       "validationCode": "1204"
     },
     {
@@ -77,8 +77,8 @@
       "address": "Place de la Mairie, Rennes",
       "lat": 48.10995,
       "lng": -1.677792,
-      "hint": "Face a la mairie, une courbe parfaite regarde la place. Le prochain indice se cache dans cette geometrie.",
-      "description": "Une halte au centre de la ville, la ou la facade ronde devient un point de repere.",
+      "hint": "Face à la mairie, une courbe parfaite regarde la place. Le prochain indice se cache dans cette géométrie.",
+      "description": "Une halte au centre de la ville, là où la façade ronde devient un point de repère.",
       "validationCode": "2841"
     },
     {
@@ -87,8 +87,8 @@
       "address": "Place Saint-Melaine, Rennes",
       "lat": 48.11458,
       "lng": -1.66795,
-      "hint": "Traversez un jardin calme. La suite attend la ou Rennes respire entre pierre, eau et allees dessinees.",
-      "description": "Une respiration dans le parcours, plus calme, plus cachee, avant le dernier mouvement.",
+      "hint": "Traversez un jardin calme. La suite attend là où Rennes respire entre pierre, eau et allées dessinées.",
+      "description": "Une respiration dans le parcours, plus calme, plus cachée, avant le dernier mouvement.",
       "validationCode": "4632"
     },
     {
@@ -97,8 +97,8 @@
       "address": "Place des Lices, Rennes",
       "lat": 48.11287,
       "lng": -1.68443,
-      "hint": "Finissez entre les lignes ouvertes de la place. Cherchez la derniere boite, la ou le centre s'elargit.",
-      "description": "Derniere etape hors boutique. Une fois validee, le message final peut etre montre en magasin.",
+      "hint": "Finissez entre les lignes ouvertes de la place. Cherchez la dernière boîte, là où le centre s'élargit.",
+      "description": "Dernière étape hors boutique. Une fois validée, le message final peut être montré en magasin.",
       "validationCode": "9175"
     }
   ]

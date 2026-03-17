@@ -136,7 +136,7 @@ export function AdminResetPanel() {
 
       setMessage(data.message ?? huntConfig.admin.successMessage);
     } catch {
-      setError("Impossible de reinitialiser pour le moment.");
+      setError("Impossible de réinitialiser pour le moment.");
     } finally {
       setIsResetting(false);
     }
@@ -288,11 +288,11 @@ export function AdminResetPanel() {
             </div>
 
             <div className="rounded-[24px] border border-black/10 bg-white p-5">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boites</p>
+              <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boîtes</p>
               <div className="mt-5 space-y-5">
                 {treasureSteps.map((step, index) => (
                   <div key={step.id} className="rounded-[22px] border border-black/10 bg-[#f5f3ec] p-4">
-                    <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boite {index + 1}</p>
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boîte {index + 1}</p>
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
                       <input
                         value={step.name}

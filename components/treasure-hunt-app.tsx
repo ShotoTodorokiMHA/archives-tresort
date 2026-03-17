@@ -225,7 +225,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
               <p className="mt-4 text-center text-xs leading-5 text-black/50">
                 {isLoading
                   ? "Chargement de la progression commune..."
-                  : "Toutes les boites sont jouables par tout le monde, en meme temps."}
+                  : "Toutes les boîtes sont jouables par tout le monde, en même temps."}
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
               <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 md:gap-4">
                 <div />
                 <div className="min-w-0">
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boite selectionnee</p>
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Boîte sélectionnée</p>
                   <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-ink md:mt-3 md:text-2xl">
                     {selectedStep.name}
                   </h2>
@@ -259,7 +259,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
                     statuses[selectedStep.id] === "unlocked" && "bg-[#b91c1c] text-white"
                   )}
                 >
-                  {statuses[selectedStep.id] === "validated" ? "Validee" : "Disponible"}
+                  {statuses[selectedStep.id] === "validated" ? "Validée" : "Disponible"}
                 </span>
               </div>
 
@@ -275,8 +275,8 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
                 <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Instruction</p>
                 <p className="mt-2 text-sm leading-6 text-black/80">
                   {statuses[selectedStep.id] === "validated"
-                    ? "Cette boite a deja ete validee. Vous pouvez quand meme visiter les autres points."
-                    : "Trouvez la boite choisie puis entrez son code pour la valider pour tout le monde."}
+                    ? "Cette boîte a déjà été validée. Vous pouvez quand même visiter les autres points."
+                    : "Trouvez la boîte choisie puis entrez son code pour la valider pour tout le monde."}
                 </p>
               </div>
 
@@ -306,7 +306,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
                 />
                 <p className="mt-3 text-xs leading-5 text-black/55 md:text-sm md:leading-6">
                   {statuses[selectedStep.id] === "validated"
-                    ? "Boite deja validee."
+                    ? "Boîte déjà validée."
                     : huntConfig.codeHelperText}
                 </p>
                 {codeError ? <p className="mt-2 text-sm text-[#9a3412]">{codeError}</p> : null}
@@ -361,7 +361,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
               <div>
                 <p className="text-[11px] uppercase tracking-[0.28em] text-black/45">Final</p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-ink md:mt-4 md:text-5xl">
-                  Toutes les boites ont ete trouvees.
+                  Toutes les boîtes ont été trouvées.
                 </h2>
                 <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-black/70 md:mt-5 md:text-base md:leading-7">
                   {huntConfig.finalMessage}
@@ -385,7 +385,7 @@ export function TreasureHuntApp({ huntConfig, treasureSteps }: TreasureHuntAppPr
           <div className="w-full max-w-[560px] rounded-[28px] border border-[#b91c1c]/20 bg-white p-6 text-center shadow-soft md:p-8">
             <p className="text-[11px] uppercase tracking-[0.34em] text-[#b91c1c]">{huntConfig.successTitle}</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-ink md:text-4xl">
-              Code valide
+              Code validé
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-black/75 md:text-base">
               {successMessage}
